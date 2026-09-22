@@ -10,10 +10,6 @@ export const USER_LAST_NAME_MAXIMUM_LENGTH = 100;
 
 export const USER_EMAIL_MAXIMUM_LENGTH = 100;
 
-export const USER_ROLE_REGEX = /^[a-z\_]$/;
-
-export const USER_ROLE_MAXIMUM_LENGTH = 50;
-
 export const USER_MOBILE_NO_REGEX = /^[0-9]$/;
 
 export const USER_MOBILE_NO_MAXIMUM_LENGTH = 12;
@@ -21,4 +17,12 @@ export const USER_MOBILE_NO_MAXIMUM_LENGTH = 12;
 export enum USER_STATUS {
     ACTIVE = 'active',
     SUSPENDED = 'suspended'
+};
+
+export enum USER_ROLE {
+    COMPANY_EMPLOYEE = 'company_employee',
+    COMPANY_MANAGER = 'company_manager',
+    RESTAURANT_EMPLOYEE = 'restaurant_employee',
+    RESTAURANT_MANAGER = 'restaurant_manager',
+    CHAIN_MANAGER = 'chain_manager'
 };

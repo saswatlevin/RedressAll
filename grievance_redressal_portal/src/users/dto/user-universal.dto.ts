@@ -8,11 +8,10 @@ import { USER_PASSWORD_REGEX,
     USER_FIRST_NAME_MAXIMUM_LENGTH, 
     USER_LAST_NAME_MAXIMUM_LENGTH, 
     USER_EMAIL_MAXIMUM_LENGTH, 
-    USER_ROLE_REGEX, 
-    USER_ROLE_MAXIMUM_LENGTH, 
     USER_MOBILE_NO_REGEX, 
     USER_MOBILE_NO_MAXIMUM_LENGTH, 
-    USER_STATUS } from '../user.constants';
+    USER_STATUS,
+    USER_ROLE } from '../user.constants';
 
 import {ADDRESS_ROOM_NUMBER_MAXIMUM_LENGTH, 
         ADDRESS_ROOM_NUMBER_REGEX, 
@@ -77,8 +76,7 @@ export class UserUniversalDto  {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    @Matches(USER_ROLE_REGEX)
-    @MaxLength(USER_ROLE_MAXIMUM_LENGTH)
+    @IsEnum(USER_ROLE)
     user_role!: string;
 
     @ApiProperty()
@@ -91,7 +89,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(ADDRESS_BUILDING_REGEX)
     @MaxLength(ADDRESS_BUILDING_MAXIMUM_LENGTH)
-    user_address_building?: number;
+    user_address_building?: string;
 
     @ApiProperty()
     @IsNotEmpty()
