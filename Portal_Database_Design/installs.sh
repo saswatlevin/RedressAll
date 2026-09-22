@@ -194,3 +194,12 @@ npx prisma generate
 # Rename the parent_comment_id to parent_id
 npx prisma migrate dev --name rename_parent_comment_id_to_parent_id
 npx prisma generate
+
+# Add chain_manager to UserRole
+npx prisma migrate dev --name add_chain_manager_to_user_role_enum
+npx prisma generate
+
+# Create an enum for countries
+npx prisma migrate dev --create-only --name add_country_check_constraint
+npx prisma migrate dev
+npx prisma generate
