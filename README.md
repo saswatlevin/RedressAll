@@ -1,3 +1,3 @@
 # README
 ## RedressAll
-# An Internal Portal to resolve Grievances of Restaurant Clients.
+# An internal grievance redressal portal to resolve grievances of restaurant clients.
