@@ -75,9 +75,8 @@ export class UserUniversalDto  {
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsString()
     @IsEnum(USER_ROLE)
-    user_role!: string;
+    user_role!: USER_ROLE;
 
     @ApiProperty()
     @IsString()
@@ -139,5 +138,5 @@ export class UserUniversalDto  {
     @ApiProperty()
     @IsNotEmpty()
     @IsEnum(USER_STATUS)
-    user_status!: string;
+    user_status!: USER_STATUS;
 }
