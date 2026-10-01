@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {IsString, IsDate, IsNotEmpty, IsEmail, Matches, IsInt, MaxLength, IsEnum, MATCHES} from 'class-validator';
+import {IsString, IsDate, IsNotEmpty, IsEmail, Matches, IsInt, MaxLength, IsEnum, MATCHES, IsMobilePhone} from 'class-validator';
 import { PARAGRAPH_REGEX,  } from '../../common.constants';
 
 import { USER_PASSWORD_REGEX, 
@@ -8,7 +8,6 @@ import { USER_PASSWORD_REGEX,
     USER_FIRST_NAME_MAXIMUM_LENGTH, 
     USER_LAST_NAME_MAXIMUM_LENGTH, 
     USER_EMAIL_MAXIMUM_LENGTH, 
-    USER_MOBILE_NO_REGEX, 
     USER_MOBILE_NO_MAXIMUM_LENGTH, 
     USER_STATUS,
     USER_ROLE } from '../user.constants';
@@ -131,7 +130,7 @@ export class UserUniversalDto  {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    @Matches(USER_MOBILE_NO_REGEX)
+    @IsMobilePhone()
     @MaxLength(USER_MOBILE_NO_MAXIMUM_LENGTH)
     user_mobile_no!: string;
 
@@ -139,4 +138,8 @@ export class UserUniversalDto  {
     @IsNotEmpty()
     @IsEnum(USER_STATUS)
     user_status!: USER_STATUS;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    user_is_moderator!: boolean;
 }
