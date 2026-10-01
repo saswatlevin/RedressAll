@@ -1,0 +1,66 @@
+### createUser
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Create a user with all non-null attributes. [ENTITY - INTEGRITY]
+03 -> Create a user with a duplicate user_mobile_no. [ENTITY - INTEGRITY]
+03 -> Create a user with NULL user_first_name value. [DTO] [SAD-PATH]
+04 -> Create a user with NULL user_last_name value. [DTO]
+05 -> Create a user with NULL outlet_id [REFERENTIAL - INTEGRITY]
+
+### updateuserName
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Update the user_first_name of an existing user to TEST_FIRST_NAME  
+03 -> Update the user_first_name of an existing user to NULL [DTO] [SAD-PATH]
+04 -> Update the user_last_name of an existing user from NULL to TEST_LAST_NAME [DTO]
+
+### updateUserRole
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Change the user_role of an existing user from its existing value to "company_manager". [DTO]
+02 -> Change the user_role of an existing user to a NULL value. [DTO] [SAD-PATH]
+03 -> Change the user_role of an existing user to TEST_ROLE [DTO] [SAD-PATH]
+
+### updateUserPassword
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Create a password with small letters, capital letters and the special characters @,#,!,$,. [DTO]
+03 -> Create a password with small letters, capital letters and ?. [DTO] [SAD-PATH]
+
+### updateUserStatus
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Change the user_status of an existing user from its existing value to "suspended". [DTO]
+03 -> Change the user_status of an existing user to a NULL value. [DTO] [SAD-PATH]
+04 -> Change the user_status of an existing user to TEST_STATUS [DTO] [SAD-PATH]
+
+### updateUserEmail
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Create an user_email of the format "smallAndCaptialLetter01@abc.com" for an existing user. [DTO]
+03 -> Create an user_email of the format "smallAndCapitalLetter?01@abc.com" for an existing user. [DTO]
+04 -> Set the user_email of an existing user to NULL [DTO].
+
+### updateUserOutletId
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Set the outlet_id of an existing user to NULL. [REFERENTIAL - INTEGRITY]
+04 -> Set the outlet_id of an existing user to another outlet that exists. [REFERENTIAL - INTEGRITY]
+05 -> Set the outlet_id of an existing user to an outlet that does not exist. [REFERENTIAL - INTEGRITY] [SAD PATH]
+
+### updateUserAddress
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+For each user_address_* field, create a test for a HAPPY - PATH DTO test and a SAD - PATH DTO test.
+
+### searchUsersByName
+01 -> Send an empty request body. [DTO] [SAD-PATH]
+02 -> Search for a user with user_first_name D, user_last_name D [DTO]
+03 -> Search for a user with user_first_name DE, user_last_name DE [DTO]
+04 -> Search for a user with user_first_name DEF, user_last_name DEF [DTO]
+05 -> Search for a user with user_first_name def, user_last_name def [DTO]
+06 -> Search for a user with user_first_name E, user_last_name E [DTO]
+07 -> Search for a user with user_first_name EF, user_last_name EF [DTO]
+08 -> Search for a user with user_first_name EFD, user_last_name EFD [DTO]
+
+### findOneUser
+01 -> Search for a user with user_id 5. [DTO]
+02 -> Search for a user with user_id 22 [DTO] [SAD-PATH]
+03 -> Search for a user with user_id aa [DTO] [SAD-PATH] 
+
+### removeUser
+01 -> Remove a user with user_id 5. [DTO] [REFERENTIAL - INTEGRITY]
+02 -> Remove a user with user_id 22 [DTO] [SAD-PATH]
+03 -> Remove a user with user_id aa [DTO] [SAD-PATH]
