@@ -10,6 +10,8 @@ import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 import { UpdateUserEmailDto } from './dto/update-user-email.dto';
 import { UpdateUserOutletIdDto } from './dto/update-user-outletid.dto';
 import { UpdateUserAddressDto } from './dto/update-user-address.dto';
+import { UpdateUserIsModeratorDto } from './dto/update-user-is-moderator.dto';
+import { UpdateUserMobileNoDto } from './dto/update-user-mobile-no.dto';
 import { SearchUsersByNameDto } from './dto/search-users-by-name.dto';
 
 @Injectable()
@@ -141,6 +143,26 @@ export class UsersService {
           });
     }
 
+    async updateUserIsModerator(userId: number, updateUserIsModeratorDto: UpdateUserIsModeratorDto) {
+        return this.prisma.user.update({
+            where: {
+              user_id: userId
+            },
+            
+            data: updateUserIsModeratorDto
+        });
+    }
+
+    async updateUserMobileNo(userId: number, updateUserMobileNoDto: UpdateUserMobileNoDto) {
+        return this.prisma.user.update({
+            where: {
+              user_id: userId
+            },
+            
+            data: updateUserMobileNoDto
+        });
+    }
+
     async searchUsersByName(searchUsersByNameDto: SearchUsersByNameDto) {
         
         // Dynamically builds the Prisma where object.
@@ -184,4 +206,3 @@ export class UsersService {
         }});
     }
 }
-

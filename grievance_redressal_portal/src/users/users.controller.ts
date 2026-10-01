@@ -8,6 +8,8 @@ import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 import { UpdateUserEmailDto } from './dto/update-user-email.dto';
 import { UpdateUserOutletIdDto } from './dto/update-user-outletid.dto';
 import { UpdateUserAddressDto } from './dto/update-user-address.dto';
+import { UpdateUserIsModeratorDto } from './dto/update-user-is-moderator.dto';
+import { UpdateUserMobileNoDto } from './dto/update-user-mobile-no.dto';
 import { SearchUsersByNameDto } from './dto/search-users-by-name.dto';
 
 @Controller('users')
@@ -60,6 +62,18 @@ export class UsersController {
     updateUserAddress(@Param('user_id', ParseIntPipe) user_id: number, @Body() updateUserAddressDto: UpdateUserAddressDto) {
         console.log("In updateUserAddress");
         return this.usersService.updateUserAddress(user_id, updateUserAddressDto);
+    }
+
+    @Patch('update_user_is_moderator/:user_id')
+    updateUserIsModerator(@Param('user_id', ParseIntPipe) user_id: number, @Body() updateUserIsModeratorDto: UpdateUserIsModeratorDto) {
+        console.log("In updateUserAddress");
+        return this.usersService.updateUserIsModerator(user_id, updateUserIsModeratorDto);
+    }
+
+    @Patch('update_user_mobile_no/:user_id')
+    updateUserMobileNo(@Param('user_id', ParseIntPipe) user_id: number, @Body() updateUserMobileNoDto: UpdateUserMobileNoDto) {
+        console.log("In updateUserAddress");
+        return this.usersService.updateUserMobileNo(user_id, updateUserMobileNoDto);
     }
 
     @Get('search_users_by_name')
