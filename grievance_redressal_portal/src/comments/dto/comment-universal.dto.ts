@@ -1,5 +1,5 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {IsString, IsNotEmpty,  IsInt, MaxLength, Matches, IsBoolean} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import {IsString, IsNotEmpty,  IsInt, MaxLength, Matches, IsBoolean, IsDate} from 'class-validator';
 import { PARAGRAPH_REGEX } from '../../common.constants';
 import { COMMENT_CONTENT_MAXIMUM_LENGTH } from '../comments.constants';
 
@@ -8,6 +8,10 @@ export class CommentUniversalDto {
     @IsNotEmpty()
     @IsInt()
     comment_id!: number;
+
+    @IsDate()
+    @IsNotEmpty()
+    comment_date_created_at!: Date;
 
     @ApiProperty()
     @IsNotEmpty()
