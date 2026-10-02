@@ -1,14 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
-import {IsInt, IsNotEmpty} from 'class-validator';
+import { PickType } from "@nestjs/swagger";
+import { OutletUniversalDto } from './outlet-universal.dto';
 
-export class UpdateChainIdDto {
-  @ApiProperty()
-  @IsInt()
-  @IsNotEmpty()
-  outlet_id!: number;
-  
-  @ApiProperty()
-  @IsInt()
-  @IsNotEmpty()
-  chain_id!: number;
-}
+export class UpdateChainIdDto extends PickType (
+  OutletUniversalDto, 
+  ['chain_id', 'outlet_id']
+) {};
