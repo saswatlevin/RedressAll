@@ -20,10 +20,10 @@ export class ChainsController {
     return this.chainsService.findAllChains();
   }
 
-  @Get('find_one_chain/:id')
-  findOneChain(@Param('id', ParseIntPipe) id: number) {
+  @Get('find_one_chain/:chain_id')
+  findOneChain(@Param('chain_id', ParseIntPipe) chain_id: number) {
     console.log("In findOneChain");
-    return this.chainsService.findOneChain(id);
+    return this.chainsService.findOneChain(chain_id);
   }
 
   @Get('search_chains_by_name/')
@@ -32,33 +32,33 @@ export class ChainsController {
     return this.chainsService.searchChainsByName(searchChainsByNameDto);
   }
 
-@Patch('update_chain_name/:id')
+@Patch('update_chain_name/:chain_id')
 updateChainName(
-  @Param('id', ParseIntPipe) id: number,
+  @Param('chain_id', ParseIntPipe) chain_id: number,
   @Body() updateChainNameDto: UpdateChainNameDto,
 ) {
   console.log("In updateChainName");
   return this.chainsService.updateChainName(
-    id,
+    chain_id,
     updateChainNameDto,
   );
 }
 
-@Patch('update_chain_address/:id')
+@Patch('update_chain_address/:chain_id')
 updateChainAddress(
-  @Param('id', ParseIntPipe) id: number,
+  @Param('chain_id', ParseIntPipe) chain_id: number,
   @Body() updateChainAddressDto: UpdateChainAddressDto,
 ) {
   console.log("In updateChainAddress");
   return this.chainsService.updateChainAddress(
-    id,
+    chain_id,
     updateChainAddressDto,
   );
 }
 
-@Delete('remove_chain/:id')
-  removeChain(@Param('id', ParseIntPipe) id: number) {
+@Delete('remove_chain/:chain_id')
+  removeChain(@Param('chain_id', ParseIntPipe) chain_id: number) {
     console.log("In removeChain");
-    return this.chainsService.removeChain(id);
+    return this.chainsService.removeChain(chain_id);
   }
 }

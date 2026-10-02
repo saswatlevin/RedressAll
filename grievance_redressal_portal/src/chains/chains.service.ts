@@ -35,10 +35,10 @@ export class ChainsService {
     return this.prisma.chain.findMany();
   }
 
-  async findOneChain(id: number) {
+  async findOneChain(chainId: number) {
     return this.prisma.chain.findUnique({
     where: {
-      chain_id: id,
+      chain_id: chainId,
     },
   });
   }
