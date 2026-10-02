@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {IsString, IsNotEmpty,  IsInt, MaxLength, Matches, IsBoolean} from 'class-validator';
-import { PARAGRAPH_REGEX, COMMENT_CONTENT_MAXIMUM_LENGTH } from '../../common.constants';
+import { PARAGRAPH_REGEX } from '../../common.constants';
+import { COMMENT_CONTENT_MAXIMUM_LENGTH } from '../comments.constants';
 
 export class CommentUniversalDto {
     @ApiProperty()
