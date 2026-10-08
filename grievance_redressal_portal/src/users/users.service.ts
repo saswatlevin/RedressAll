@@ -13,6 +13,7 @@ import { UpdateUserAddressDto } from './dto/update-user-address.dto';
 import { UpdateUserIsModeratorDto } from './dto/update-user-is-moderator.dto';
 import { UpdateUserMobileNoDto } from './dto/update-user-mobile-no.dto';
 import { SearchUsersByNameDto } from './dto/search-users-by-name.dto';
+import { FindUserByEmailDto } from './dto/find-user-by-email.dto';
 
 @Injectable()
 export class UsersService {
@@ -197,6 +198,13 @@ export class UsersService {
 
     async findAllUsers() {
         return this.prisma.user.findMany();
+    }
+
+    async findUserByEmail(findUserByEmailDto: FindUserByEmailDto) {
+        return this.prisma.user.findUnique({
+            where: {
+                user_email: findUserByEmailDto.user_email
+        }});
     }
 
     async removeUser(userId: number) {

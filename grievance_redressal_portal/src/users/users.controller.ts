@@ -11,6 +11,7 @@ import { UpdateUserAddressDto } from './dto/update-user-address.dto';
 import { UpdateUserIsModeratorDto } from './dto/update-user-is-moderator.dto';
 import { UpdateUserMobileNoDto } from './dto/update-user-mobile-no.dto';
 import { SearchUsersByNameDto } from './dto/search-users-by-name.dto';
+import { FindUserByEmailDto } from './dto/find-user-by-email.dto';
 
 @Controller('users')
 export class UsersController {
@@ -86,6 +87,12 @@ export class UsersController {
     findOneUser(@Param('user_id', ParseIntPipe) user_id: number) {
         console.log("In findOneUser");
         return this.usersService.findOneUser(user_id);
+    }
+
+    @Get('find_user_by_email')
+    findUserByEmail(findUserByEmailDto: FindUserByEmailDto) {
+        console.log("In findUserByEmail");
+        return this.usersService.findUserByEmail(findUserByEmailDto);
     }
 
     @Get('find_all_users')
