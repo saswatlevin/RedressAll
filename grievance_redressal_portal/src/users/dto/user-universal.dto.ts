@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {IsString, IsDate, IsNotEmpty, IsEmail, Matches, IsInt, MaxLength, IsEnum, MATCHES, IsMobilePhone, IsBoolean} from 'class-validator';
-import { PARAGRAPH_REGEX,  } from '../../common.constants';
 
 import { USER_PASSWORD_REGEX, 
     USER_PASSWORD_MAXIMUM_LENGTH, 
