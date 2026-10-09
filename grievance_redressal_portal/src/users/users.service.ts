@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRole, UserStatus } from '../../generated/prisma/enums';
+import { UserRole, UserStatus } from '../generated/prisma/enums';
 import * as argon2 from 'argon2';
 import { UpdateUserNameDto } from './dto/update-user-name.dto';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
