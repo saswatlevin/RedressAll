@@ -1,0 +1,39 @@
+1. Why is UsersRepository in both providers and exports in users.module.ts?
+    * UsersRepository is added to providers so that classes in UsersModule can inject and use it.
+    * It is added to exports so that other modules that import UserModule can access it.
+
+2. Explain the signUp() method in AuthController class.
+    * It receives the credentials from SignUpDTO which are then passed to the CredentialsService.
+    * It then uses the register() method of CredentialsService to create the user. 
+      * In the CredentialsService.register() method, we check if the account already exists. If it does, then an error is thrown, otherwise not.
+    * Then, the signInService.signIn() is used to immediately establish a session. 
+    * The session cookie is set.
+    * The User object containing this newly created user is returned.
+
+3. What is { method: 'password' } signInService.signIn()?
+    * The {method: 'password'} selects the "password" way of authenticating the user.
+    * Note that there are other methods such as  "google", "magic link", etc. of authenticating the user too.
+
+4. The signIn() method in AuthController class.
+    * We get the email and password from the SignInDTO.
+    * The email [THRU this.usersRepository.findCredentials()] and password [using this.passwordHasher.verify()] are verified in this.CredentialsService.verify(). 
+    * If this.CredentialsService.verify() successfully verifies them, then it returns the found User object. 
+    * If they are found to be correct then SignInService.signIn() generates and retunrs the session cookie successfully.
+    * signIn() returns { "mfaRequired": false } since mfa is not enabled.
+
+5. NOTE: The AuthController class uses Public() to ensure that the authentication process is not needed for the signIn() and signUp() routes.
+
+6. The SessionAuth class:
+    * It identifies the user associated with the session of a session cookie.
+    * It extends the SessionCookieProvider class which provides the code needed to authenticate the session cookies.
+    * The AuthenticationRegistry maintains a list of authentication providers. The SessionAuth class registers itself there.
+    * The validate() function in the SessionAuth class is used to get the user_id from a session cookie. If it get a user, then it returns the User object, else it retunrs null.
+
+
+
+
+
+
+
+
+
