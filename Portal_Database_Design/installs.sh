@@ -203,3 +203,42 @@ npx prisma generate
 npx prisma migrate dev --create-only --name add_country_check_constraint
 npx prisma migrate dev
 npx prisma generate
+
+# Upgrading NestJS from 11.0.24 to 12.x.x
+# =========UPGRADE NESTJS========= #
+
+# Update the Global Nest CLI
+sudo npm i -g @nestjs/cli@latest @nestjs/schematics@latest
+
+# Upgrade Typescript to Version 6
+npm install -D typescript@6.0.2
+
+# Update the Local Nest CLI
+npm i -D @nestjs/cli@latest @nestjs/schematics@latest
+
+# Check how the upgrade will proceed
+nest upgrade --dry-run
+
+# Install Node Version Manager (NVM)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+
+# Reload the shell source
+source ~/.bashrc
+
+# Install Node 24
+nvm install 24.15.0 
+
+# Use node 24.15.0
+nvm use 24.15.0
+
+# Make node 24.15.0 the default. This way all new shells will use this version of node by default.
+nvm alias default 24.15.0 
+
+# Re-install nest cli latest under node 24.15.0
+npm i -g @nestjs/cli@latest @nestjs/schematics@latest
+
+# Re-run the nest upgrade dry run
+nest upgrade --dry-run
+
+# Perform the Nest Upgrade
+nest upgrade
