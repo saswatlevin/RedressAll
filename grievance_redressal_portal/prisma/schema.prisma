@@ -3,9 +3,11 @@
 
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
+// moduleformat = "cjs" added to circumvent prisma bug in mixed commonjs projects.
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
