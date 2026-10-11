@@ -35,7 +35,7 @@ export class UsersService {
                 user_password: hashed_user_password,
                 user_email: createUserDto.user_email,
                 user_dob: createUserDto.user_dob,
-                user_role: createUserDto.user_role as UserRole,
+                user_role: UserRole.restaurant_employee,
                 user_address_room_no: createUserDto.user_address_room_no,
                 user_address_building: createUserDto.user_address_building,
                 user_address_street: createUserDto.user_address_street,
@@ -49,16 +49,10 @@ export class UsersService {
                  // connect the new user to the existing outlet having that ID; 
                  // otherwise, don't set the outlet relation. 
                  
-                outlet: createUserDto.outlet_id
-                ? {
-                    connect: {
-                        outlet_id: createUserDto.outlet_id
-                    }
-                    }
-                : undefined,
+                outlet_id: undefined,
 
                 user_mobile_no: createUserDto.user_mobile_no,
-                user_status: createUserDto.user_status as UserStatus
+                user_status: UserStatus.active
             }
         });
         
