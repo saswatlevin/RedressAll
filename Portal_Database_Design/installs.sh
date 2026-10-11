@@ -242,3 +242,6 @@ nest upgrade --dry-run
 
 # Perform the Nest Upgrade
 nest upgrade
+
+# Install the NestJS Authentication Module
+npm i --save @nestjs/authentication

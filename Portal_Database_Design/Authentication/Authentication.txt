@@ -30,6 +30,15 @@
     * The validate() function in the SessionAuth class is used to get the user_id from a session cookie. If it get a user, then it returns the User object, else it retunrs null.
 
 
+CHANGES:
+  * In register() in CredentialsService, change the argument list to createUserDto.
+  * In register() in CredentialsService, call this.usersRepository.findUserByEmail with emailDto.
+  * In register() in CredentialsService, replace this.usersRepository.create with this.usersService.createUser.
+  * In register() in CredentialsService, call this.usersService.createUser() wuth createUserDto.
+  * Write the findAllUserInfo() function to check if the user exists. If it does, then return the entire user object, else return null.
+  * In register() in CredentialsService, replace this.usersRepository.findCredentials() with this.usersService.findAllUserInfo()
+
+
 
 
 
