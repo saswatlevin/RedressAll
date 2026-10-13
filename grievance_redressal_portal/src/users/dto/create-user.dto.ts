@@ -1,8 +1,8 @@
-import { OmitType } from '@nestjs/swagger';
+import { PickType } from '@nestjs/swagger';
 
 import { UserUniversalDto } from './user-universal.dto';
 
-export class CreateUserDto extends OmitType(
+export class CreateUserDto extends PickType(
     UserUniversalDto,
     [
         'user_first_name',
