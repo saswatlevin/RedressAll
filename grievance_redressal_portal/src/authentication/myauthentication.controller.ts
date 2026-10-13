@@ -6,7 +6,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Public()
 @Controller('auth')
-export class AuthenticationController {
+export class MyAuthenticationController {
   constructor(
     private readonly credentialsService: CredentialsService,
     private readonly signInService: SignInService,
