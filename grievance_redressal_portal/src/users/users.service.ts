@@ -29,6 +29,11 @@ export class UsersService {
         
 
         return this.prisma.user.create({
+            
+            omit: {
+                user_password: true,
+            },
+
             data: {
                 user_first_name: createUserDto.user_first_name,
                 user_last_name: createUserDto.user_last_name,
@@ -45,9 +50,9 @@ export class UsersService {
                 user_address_post_code: createUserDto.user_address_post_code,                
 
                 
-                 // If outlet_id was supplied, 
-                 // connect the new user to the existing outlet having that ID; 
-                 // otherwise, don't set the outlet relation. 
+                // If outlet_id was supplied, 
+                // connect the new user to the existing outlet having that ID; 
+                // otherwise, don't set the outlet relation. 
                  
                 outlet_id: undefined,
 
@@ -64,6 +69,11 @@ export class UsersService {
             where: {
               user_id: userId
             },
+            
+            omit: {
+                user_password: true,
+            },
+            
             data: updateUserNameDto
           });
     }
@@ -72,6 +82,10 @@ export class UsersService {
         return this.prisma.user.update({
             where: {
               user_id: userId
+            },
+            
+            omit: {
+                user_password: true,
             },
             
             data: updateUserRoleDto
@@ -90,6 +104,10 @@ export class UsersService {
               user_id: userId
             },
             
+            omit: {
+                user_password: true,
+            },
+
             data: updateUserPasswordDto
           });
     }
@@ -101,6 +119,10 @@ export class UsersService {
               user_id: userId
             },
             
+            omit: {
+                user_password: true,
+            },
+
             data: updateUserStatusDto
           });
     }
@@ -110,6 +132,10 @@ export class UsersService {
         return this.prisma.user.update({
             where: {
               user_id: userId
+            },
+
+            omit: {
+                user_password: true,
             },
             
             data: updateUserEmailDto
@@ -122,6 +148,10 @@ export class UsersService {
             where: {
               user_id: userId
             },
+
+            omit: {
+                user_password: true,
+            },
             
             data: updateUserOutletIdDto
           });
@@ -132,6 +162,10 @@ export class UsersService {
         return this.prisma.user.update({
             where: {
               user_id: userId
+            },
+
+            omit: {
+                user_password: true,
             },
             
             data: updateUserAddressDto
@@ -144,6 +178,10 @@ export class UsersService {
               user_id: userId
             },
             
+            omit: {
+                user_password: true,
+            },
+
             data: updateUserIsModeratorDto
         });
     }
@@ -152,6 +190,10 @@ export class UsersService {
         return this.prisma.user.update({
             where: {
               user_id: userId
+            },
+            
+            omit: {
+                user_password: true,
             },
             
             data: updateUserMobileNoDto
@@ -179,7 +221,11 @@ export class UsersService {
                         mode: 'insensitive'
                     }
                 })
-            }
+            },
+
+            omit: {
+                user_password: true,
+            },
         });
     }
 
@@ -187,7 +233,13 @@ export class UsersService {
         return this.prisma.user.findUnique({
             where: {
                 user_id: userId
-        }});
+            },
+
+            omit: {
+                user_password: true,
+            }
+    
+        });
     }
 
     async findAllUsers() {
@@ -198,13 +250,24 @@ export class UsersService {
         return this.prisma.user.findUnique({
             where: {
                 user_email: findUserByEmailDto.user_email
-        }});
+            },
+
+            omit: {
+                user_password: true,
+            }
+    
+        });
     }
 
     async removeUser(userId: number) {
         return this.prisma.user.delete({
             where: {
                 user_id: userId
-        }});
+        },
+
+        omit: {
+            user_password: true,
+        }
+    });
     }
 }
