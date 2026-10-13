@@ -25,6 +25,8 @@ import {ADDRESS_ROOM_NUMBER_MAXIMUM_LENGTH,
         ADDRESS_COUNTRY_REGEX,
         ADDRESS_POST_CODE_REGEX } from '../../common.constants';
 
+import { SanitizeXss } from '../../sanitizer/sanitize-xss.decorator';
+
 
 export class UserUniversalDto  {
     @ApiProperty()
@@ -41,6 +43,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(NAME_REGEX)
     @MaxLength(USER_FIRST_NAME_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_first_name!: string;
 
     @ApiProperty()
@@ -48,6 +51,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(NAME_REGEX)
     @MaxLength(USER_LAST_NAME_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_last_name!: string;
 
     @ApiProperty()
@@ -55,6 +59,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(USER_PASSWORD_REGEX)
     @MaxLength(USER_PASSWORD_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_password!: string;
 
     @ApiProperty()
@@ -62,6 +67,7 @@ export class UserUniversalDto  {
     @IsString()
     @IsEmail()
     @MaxLength(USER_EMAIL_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_email!: string;
 
     @ApiProperty()
@@ -78,6 +84,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(ADDRESS_ROOM_NUMBER_REGEX)
     @MaxLength(ADDRESS_ROOM_NUMBER_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_address_room_no?: string;
 
     @ApiProperty()
@@ -91,6 +98,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(ADDRESS_STREET_REGEX)
     @MaxLength(ADDRESS_STREET_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_address_street!: string;
 
     @ApiProperty()
@@ -98,12 +106,14 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(ADDRESS_CITY_REGEX)
     @MaxLength(ADDRESS_CITY_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_address_city!: string;
 
     @ApiProperty()
     @IsString()
     @Matches(ADDRESS_ADMIN_DIVISION_REGEX)
     @MaxLength(ADDRESS_ADMIN_DIVISION_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_address_admin_division?: string;
 
     @ApiProperty()
@@ -111,6 +121,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(ADDRESS_COUNTRY_REGEX)
     @MaxLength(ADDRESS_COUNTRY_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_address_country!: string;
 
     @ApiProperty()
@@ -118,6 +129,7 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(ADDRESS_POST_CODE_REGEX)
     @IsPostalCode()
+    @SanitizeXss()
     user_address_post_code!: string;
 
     @ApiProperty()
@@ -129,6 +141,7 @@ export class UserUniversalDto  {
     @IsString()
     @IsMobilePhone()
     @MaxLength(USER_MOBILE_NO_MAXIMUM_LENGTH)
+    @SanitizeXss()
     user_mobile_no!: string;
 
     @ApiProperty()

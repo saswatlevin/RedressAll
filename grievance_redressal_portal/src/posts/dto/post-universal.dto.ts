@@ -4,6 +4,7 @@ import {PARAGRAPH_REGEX} from '../../common.constants';
 import { POST_TITLE_MAXIMUM_LENGTH, 
     POST_CONTENT_MAXIMUM_LENGTH, 
     POST_STATUS} from '../posts.constants';
+import { SanitizeXss } from '../../sanitizer/sanitize-xss.decorator';
 
 export class PostUniversalDto {
   @ApiProperty()
@@ -20,6 +21,7 @@ export class PostUniversalDto {
   @IsNotEmpty()
   @Matches(PARAGRAPH_REGEX)
   @MaxLength(POST_TITLE_MAXIMUM_LENGTH)
+  @SanitizeXss()
   post_title!: string;
 
   @ApiProperty()
@@ -27,6 +29,7 @@ export class PostUniversalDto {
   @IsNotEmpty()
   @Matches(PARAGRAPH_REGEX)
   @MaxLength(POST_CONTENT_MAXIMUM_LENGTH)
+  @SanitizeXss()
   post_content!: string;
 
   @ApiProperty()
