@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {IsString, IsDate, IsNotEmpty, IsEmail, Matches, IsInt, MaxLength, IsEnum, MATCHES, IsMobilePhone, IsBoolean} from 'class-validator';
+import {IsString, IsDate, IsNotEmpty, IsEmail, Matches, IsInt, MaxLength, IsEnum, IsMobilePhone, IsBoolean, IsPostalCode} from 'class-validator';
 
 import { USER_PASSWORD_REGEX, 
     USER_PASSWORD_MAXIMUM_LENGTH, 
@@ -23,7 +23,6 @@ import {ADDRESS_ROOM_NUMBER_MAXIMUM_LENGTH,
         ADDRESS_ADMIN_DIVISION_REGEX,
         ADDRESS_COUNTRY_MAXIMUM_LENGTH,
         ADDRESS_COUNTRY_REGEX,
-        ADDRESS_POST_CODE_MAXIMUM_LENGTH,
         ADDRESS_POST_CODE_REGEX } from '../../common.constants';
 
 
@@ -118,7 +117,7 @@ export class UserUniversalDto  {
     @IsNotEmpty()
     @IsString()
     @Matches(ADDRESS_POST_CODE_REGEX)
-    @MaxLength(ADDRESS_POST_CODE_MAXIMUM_LENGTH)
+    @IsPostalCode()
     user_address_post_code!: string;
 
     @ApiProperty()

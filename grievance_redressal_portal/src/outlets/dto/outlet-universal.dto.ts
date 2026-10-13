@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {IsString, IsNotEmpty, MaxLength, Matches, IsInt, IsDate} from 'class-validator';
+import {IsString, IsNotEmpty, MaxLength, Matches, IsInt, IsDate, IsPostalCode} from 'class-validator';
 import {OUTLET_NAME_REGEX, OUTLET_NAME_MAXIMUM_LENGTH} from '../outlets.constants';
 import {ADDRESS_ROOM_NUMBER_MAXIMUM_LENGTH, 
         ADDRESS_ROOM_NUMBER_REGEX, 
@@ -13,8 +13,7 @@ import {ADDRESS_ROOM_NUMBER_MAXIMUM_LENGTH,
         ADDRESS_ADMIN_DIVISION_REGEX,
         ADDRESS_COUNTRY_MAXIMUM_LENGTH,
         ADDRESS_COUNTRY_REGEX,
-        ADDRESS_POST_CODE_MAXIMUM_LENGTH,
-        ADDRESS_POST_CODE_REGEX} from '../../common.constants';
+        ADDRESS_POST_CODE_MAXIMUM_LENGTH} from '../../common.constants';
 
 // For all mandatory fields, use the definite assignmetn operator "!"
 export class OutletUniversalDto {
@@ -77,7 +76,7 @@ export class OutletUniversalDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(ADDRESS_POST_CODE_MAXIMUM_LENGTH)
-  @Matches(ADDRESS_POST_CODE_REGEX)
+  @IsPostalCode()
   outlet_address_post_code!: string;
 
   @ApiProperty()
