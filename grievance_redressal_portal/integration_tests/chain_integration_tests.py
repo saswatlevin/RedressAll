@@ -102,10 +102,34 @@ chain_test_data_list = [
         "test_name": "Test to update chain_name to a UPDATE TEST CHAIN in UPDATE_CHAIN_NAME",
 
         "test_data": {
-            "chain_name": "UPDATE TEST CHAIN"
+            "chain_name": "1234T"
         },
 
         "serial": 7
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_name/4",
+
+        "test_name": "Test to update chain_name to a UPDATE TEST CHAIN in UPDATE_CHAIN_NAME",
+
+        "test_data": {
+            "chain_name": "TES2"
+        },
+
+        "serial": 8
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_name/4",
+
+        "test_name": "Test to update chain_name to a UPDATE TEST CHAIN in UPDATE_CHAIN_NAME",
+
+        "test_data": {
+            "chain_name": "UPDATE3"
+        },
+
+        "serial": 9
     },
 
     {
@@ -117,7 +141,7 @@ chain_test_data_list = [
             "chain_name": "Test Chain 1"
         },
 
-        "serial": 8
+        "serial": 10
     },
 
     {
@@ -129,7 +153,7 @@ chain_test_data_list = [
             "chain_name": "1234"
         },
 
-        "serial": 9
+        "serial": 11
 
     },
 
@@ -142,7 +166,7 @@ chain_test_data_list = [
             "chain_headquarters_address_room_no": "11"
         },
 
-        "serial": 10
+        "serial": 12
     },
 
     {
@@ -154,7 +178,7 @@ chain_test_data_list = [
             "chain_headquarters_address_room_no": "AA"
         },
 
-        "serial": 11
+        "serial": 13
     },
 
     {
@@ -166,19 +190,43 @@ chain_test_data_list = [
             "chain_headquarters_address_building": "TEST BUILDING"
         },
 
-        "serial": 12
+        "serial": 14
     },
 
     {
         "url": "http://localhost:3000/chains/update_chain_address/4",
 
-        "test_name": "Test to update the chain address building to TEST#BUILDING in UPDATE_CHAIN_ADDRESS",
+        "test_name": "Test to update the chain address building to 1234T in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_building": "1234T"
+        },
+
+        "serial": 15
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address building to TEST1 in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_building": "TEST1"
+        },
+
+        "serial": 16
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address building to TEST1 in UPDATE_CHAIN_ADDRESS",
 
         "test_data": {
             "chain_headquarters_address_building": "TEST#BUILDING"
         },
 
-        "serial": 13
+        "serial": 17
     },
 
     {
@@ -190,7 +238,31 @@ chain_test_data_list = [
             "chain_headquarters_address_street": "TEST STREET"
         },
 
-        "serial": 14
+        "serial": 18
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address street to 1234T in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_street": "1234T"
+        },
+
+        "serial": 19
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address street to TEST1 in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_street": "TEST1"
+        },
+
+        "serial": 20
     },
 
     {
@@ -202,7 +274,7 @@ chain_test_data_list = [
             "chain_headquarters_address_street": "TEST#STREET"
         },
 
-        "serial": 15
+        "serial": 21
     },
 
     {
@@ -214,7 +286,31 @@ chain_test_data_list = [
             "chain_headquarters_address_city": "TEST CITY"
         },
 
-        "serial": 16
+        "serial": 22
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address city to 1234T in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_city": "1234T"
+        },
+
+        "serial": 23
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address city to TEST1 in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_city": "TEST1"
+        },
+
+        "serial": 24
     },
 
     {
@@ -226,7 +322,7 @@ chain_test_data_list = [
             "chain_headquarters_address_city": "TEST#CITY"
         },
 
-        "serial": 17
+        "serial": 25
     },
 
     {
@@ -238,7 +334,31 @@ chain_test_data_list = [
             "chain_headquarters_address_admin_division": "TEST DIVISION"
         },
 
-        "serial": 18
+        "serial": 26
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address administrative division to 1234T in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_admin_division": "1234T"
+        },
+
+        "serial": 27
+    },
+
+    {
+        "url": "http://localhost:3000/chains/update_chain_address/4",
+
+        "test_name": "Test to update the chain address administrative division to TEST1 in UPDATE_CHAIN_ADDRESS",
+
+        "test_data": {
+            "chain_headquarters_address_admin_division": "TEST1"
+        },
+
+        "serial": 28
     },
 
     {
@@ -250,7 +370,7 @@ chain_test_data_list = [
             "chain_headquarters_address_admin_division": "TEST#9DIVISION"
         },
 
-        "serial": 19
+        "serial": 29
     },
 
     {
@@ -262,7 +382,7 @@ chain_test_data_list = [
             "chain_headquarters_address_country": "United Arab Emirates"
         },
 
-        "serial": 20
+        "serial": 30
     },
 
     {
@@ -274,7 +394,7 @@ chain_test_data_list = [
             "chain_headquarters_address_country": "United8Arab Emirates"
         },
 
-        "serial": 21
+        "serial": 31
     },
 
 
@@ -287,7 +407,7 @@ chain_test_data_list = [
             "chain_headquarters_address_post_code": "123456"
         },
 
-        "serial": 22
+        "serial": 32
     },
 
     {
@@ -299,7 +419,7 @@ chain_test_data_list = [
             "chain_headquarters_address_post_code": "123-456"
         },
 
-        "serial": 23
+        "serial": 33
     },
 
     {
@@ -309,17 +429,7 @@ chain_test_data_list = [
 
         "test_data": {},
 
-        "serial": 24
-    },
-
-    {
-        "url": "http://localhost:3000/chains/remove_chain/4",
-
-        "test_name": "Test to delete the chain with chain_id 4 in REMOVE_CHAIN",
-
-        "test_data": {},
-
-        "serial": 25
+        "serial": 34
     }
 
 ]

@@ -2,10 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ChainsService } from './chains.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
-//import { validate } from 'class-validator';
-//import { plainToInstance } from 'class-transformer';
-//import { CreateChainDto } from './dto/create-chain.dto';
-//import { UpdateChainNameDto } from './dto/update-chain-name.dto';
 
 describe('Database tests', () => {
   let prisma: PrismaService;
