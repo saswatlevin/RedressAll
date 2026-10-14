@@ -11,4 +11,4 @@ import { CredentialsService } from './credentials.service';
     CredentialsService
   ]
 })
-export class AuthenticationModule {}
+export class MyAuthenticationModule {}

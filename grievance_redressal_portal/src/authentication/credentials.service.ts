@@ -37,7 +37,7 @@ export class CredentialsService {
     
     // Checking if the user exists.
     if (!found_user) {
-      return null;
+      throw new ConflictException('User does not exist. Login rejected.');
     }
     
     // If the user is suspended, reject login by throwing an exception.
@@ -52,7 +52,7 @@ export class CredentialsService {
 
     // Checking if the user's password is correct.
     if (password_check !== true) {
-      return null;
+      throw new ConflictException('Incorrect username or password. Login rejected.');
     }
 
    

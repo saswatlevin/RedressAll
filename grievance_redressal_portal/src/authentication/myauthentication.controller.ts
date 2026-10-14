@@ -24,9 +24,6 @@ export class MyAuthenticationController {
   @HttpCode(200)
   async signIn(@Body() signInDto: SignInDto) {
     const user = await this.credentialsService.verify(signInDto.user_email, signInDto.user_password);
-    if (!user) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
 
     var string_user_id = String(user.user_id);
 
