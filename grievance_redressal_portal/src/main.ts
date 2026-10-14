@@ -11,8 +11,20 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   
   const app = await NestFactory.create(AppModule);
+  
   // Calling the ValidationPipe middleware 
-  app.useGlobalPipes(new ValidationPipe());
+  // Allows only white-listed characters
+  // Forbids all non-whitelisted characters.
+  // Transforms dangerous characters.
+  app.useGlobalPipes(
+  new ValidationPipe({
+    transform: true,
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  }),
+);
+  //app.useGlobalPipes(new ValidationPipe());
+  
   await app.listen(process.env.PORT ?? 3000);
 }
 
