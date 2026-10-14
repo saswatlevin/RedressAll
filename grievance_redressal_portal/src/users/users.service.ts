@@ -247,15 +247,11 @@ export class UsersService {
     }
 
     async findUserByEmail(findUserByEmailDto: FindUserByEmailDto) {
+        // Here, we ensure that user_password is returned since verify() uses it.
         return this.prisma.user.findUnique({
             where: {
                 user_email: findUserByEmailDto.user_email
-            },
-
-            omit: {
-                user_password: true,
             }
-    
         });
     }
 

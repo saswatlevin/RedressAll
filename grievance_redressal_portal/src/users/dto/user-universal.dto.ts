@@ -59,7 +59,6 @@ export class UserUniversalDto  {
     @IsString()
     @Matches(USER_PASSWORD_REGEX)
     @MaxLength(USER_PASSWORD_MAXIMUM_LENGTH)
-    @SanitizeXss()
     user_password!: string;
 
     @ApiProperty()
