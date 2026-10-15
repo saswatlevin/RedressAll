@@ -4,6 +4,7 @@ import { OutletUniversalDto } from "./outlet-universal.dto";
 // For all mandatory fields, use the definite assignmetn operator "!"
 export class CreateOutletDto extends PickType (
   OutletUniversalDto, [     
+    'outlet_name',
     'outlet_address_room_no', 
     'outlet_address_building', 
     'outlet_address_street',
