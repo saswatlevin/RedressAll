@@ -245,3 +245,18 @@ nest upgrade
 
 # Install the NestJS Authentication Module
 npm i --save @nestjs/authentication
+
+# Installing winston
+npm install nest-winston 
+npm install winston 
+npm install winston-daily-rotate-file
+
+# Postgres commands to keep the table format w/o wrapping
+\pset pager on
+\setenv PAGER 'less -S'
+
+# Jest config error resolution
+node -v
+npx jest --version
+npm ls @nestjs/testing jest ts-jest
+ls src/generated/prisma/internal/class.ts
