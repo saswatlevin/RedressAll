@@ -89,3 +89,15 @@ describe('PostsService', () => {
     expect(post.post_status).toBe('open');
   });
 });
+/**
+ * <escape>[
+  {
+    "post_id": 4,
+    "post_date_created_at": "2026-08-13T10:30:49.231396+05:30",
+    "post_content": "STU Post One",
+    "user_id": 7,
+    "post_status": "open",
+    "post_title": "DEFAULT POST TITLE"
+  }
+]</escape>
+ */

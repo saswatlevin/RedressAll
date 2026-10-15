@@ -254,3 +254,17 @@ describe('OutletsService - Database Tests', () => {
     });
   });
 });
+
+/**
+ * {
+        outlet_name: 'Tim Hortons Test Outlet 2',
+        outlet_address_room_no: '5',
+        outlet_address_building: 'Test Building 2',
+        outlet_address_street: 'Test Street 2',
+        outlet_address_city: 'Test City Two',
+        outlet_address_admin_division: 'Test Division Two',
+        outlet_address_country: 'Saudi Arabia',
+        outlet_address_post_code: '123457',
+        chain_id: 1,
+      }
+ */

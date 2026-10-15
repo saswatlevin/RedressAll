@@ -101,3 +101,17 @@ describe('Comment Database Tests', () => {
     ).rejects.toThrow();
   });
 });
+
+/**
+ * <escape>[
+  {
+    "comment_id": 17,
+    "comment_date_created_at": "2026-09-08T06:23:25.396+05:30",
+    "comment_content": "Reply TWO to Second child-less comment from user_id 8 for post_id 4 with parent_id 15 and comment_id 17",
+    "comment_is_deleted": false,
+    "post_id": 4,
+    "user_id": 8,
+    "parent_id": null
+  }
+]</escape>
+ */
