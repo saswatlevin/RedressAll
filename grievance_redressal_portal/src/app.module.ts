@@ -10,6 +10,10 @@ import { CommentsModule } from './comments/comments.module';
 import { AuthenticationModule } from '@nestjs/authentication';
 import { MyAuthenticationModule } from './authentication/myauthentication.module';
 
+import { WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
+
 @Module({
   imports: [
     UsersModule, 
@@ -23,6 +27,37 @@ import { MyAuthenticationModule } from './authentication/myauthentication.module
       // Keep your existing authentication/session configuration here.
     }),
     MyAuthenticationModule,
+
+    WinstonModule.forRoot({
+      level: process.env.LOG_LEVEL ?? 'info',
+
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.errors({ stack: true }),
+        winston.format.json(),
+      ),
+
+      transports: [
+        new DailyRotateFile({
+          dirname: 'logs',
+          filename: 'application-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          zippedArchive: true,
+          maxSize: '20m',
+          maxFiles: '14d',
+        }),
+
+        new DailyRotateFile({
+          dirname: 'logs',
+          filename: 'errors-%DATE%.log',
+          datePattern: 'YYYY-MM-DD',
+          zippedArchive: true,
+          maxSize: '20m',
+          maxFiles: '30d',
+          level: 'error',
+        }),
+      ],
+  }), 
 
   ],
   controllers: [AppController],
