@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserRole, UserStatus } from '../generated/prisma/enums';
@@ -15,9 +15,16 @@ import { UpdateUserMobileNoDto } from './dto/update-user-mobile-no.dto';
 import { SearchUsersByNameDto } from './dto/search-users-by-name.dto';
 import { FindUserByEmailDto } from './dto/find-user-by-email.dto';
 
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import type { Logger as WinstonLogger } from 'winston';
+
 @Injectable()
 export class UsersService {
-    constructor (private readonly prisma: PrismaService) {}
+    constructor (
+        private readonly prisma: PrismaService,
+        @Inject(WINSTON_MODULE_PROVIDER)
+        private readonly logger: WinstonLogger
+    ) {}
 
     async createUser(createUserDto: CreateUserDto) {
 
