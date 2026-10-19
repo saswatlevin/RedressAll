@@ -3,101 +3,188 @@ import { PostsService } from './posts.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 
- // Remember to delete the duplicate posts created in the database after the tests.
-describe('PostsService', () => {
-  let service: PostsService;
+describe('Database tests - PostsService', () => {
   let prisma: PrismaService;
+  let postsService: PostsService;
+  let moduleRef: TestingModule;
+
+  const POST_ID = 8;
+  const USER_ID = 7;
+
+  let postCreatedByTest = false;
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    moduleRef = await Test.createTestingModule({
       imports: [PrismaModule],
       providers: [PostsService],
     }).compile();
 
-    service = module.get<PostsService>(PostsService);
-    prisma = module.get<PrismaService>(PrismaService);
+    prisma = moduleRef.get<PrismaService>(PrismaService);
+    postsService = moduleRef.get<PostsService>(PostsService);
+
+    // Verify that the referenced user exists.
+    const user = await prisma.user.findUnique({
+      where: { user_id: USER_ID },
+    });
+
+    if (!user) {
+      throw new Error(
+        `Test aborted: user_id ${USER_ID} does not exist.`,
+      );
+    }
+
+    // Do not overwrite an existing post.
+    const existingPost = await prisma.post.findUnique({
+      where: { post_id: POST_ID },
+    });
+
+    if (existingPost) {
+      throw new Error(
+        `Test aborted: post_id ${POST_ID} already exists. ` +
+          'Use a dedicated test database or free this ID first.',
+      );
+    }
   });
 
   afterAll(async () => {
-    await prisma.$disconnect();
+    try {
+      // Clean up if a test fails before the deletion test.
+      if (postCreatedByTest) {
+        await prisma.post.deleteMany({
+          where: { post_id: POST_ID },
+        });
+      }
+    } finally {
+      await prisma?.$disconnect();
+      await moduleRef?.close();
+    }
   });
 
-  it('1. should allow duplicate post_content', async () => {
-    const data = {
-      post_content: 'Test Post 2 for user JULF',
-      user_id: 9,
+  // TEST 1: CREATE POST
+  it('1. should create a post using createPost', async () => {
+    const postData = {
+      post_id: POST_ID,
+      post_date_created_at: new Date(),
+      post_content: 'STU Post One',
+      user_id: USER_ID,
       post_status: 'open',
+      post_title: 'DEFAULT POST TITLE',
     };
 
-    const post = await service.createPost(data as any);
+    const createdPost = await postsService.createPost(
+      postData as any,
+    );
 
-    expect(post).toBeDefined();
-    expect(post.post_content).toBe('Test Post 2 for user JULF');
-    expect(post.user_id).toBe(9);
-    expect(post.post_status).toBe('open');
-  });
+    postCreatedByTest = true;
 
-  it('2. should allow duplicate post_title', async () => {
-    const data = {
-      post_content: 'Some Test Post Content',
-      post_title: 'JULF Test Post 2',
-      user_id: 9,
+    expect(createdPost).toMatchObject({
+      post_id: POST_ID,
+      post_content: 'STU Post One',
+      user_id: USER_ID,
       post_status: 'open',
-    };
-
-    const post = await service.createPost(data as any);
-
-    expect(post).toBeDefined();
-    expect(post.post_title).toBe('JULF Test Post 2');
-    expect(post.user_id).toBe(9);
-    expect(post.post_status).toBe('open');
-  });
-
-  it('3. should delete the post with title JULF Test Post 2 and content Test post 2 for user JULF', async () => {
-    const post = await prisma.post.findFirstOrThrow({
-      where: {
-        post_title: 'JULF Test Post 2',
-        post_content: 'Test post 2 for user JULF',
-      },
+      post_title: 'DEFAULT POST TITLE',
     });
 
-    await service.removePost(post.post_id);
-
-    const deletedPost = await prisma.post.findUnique({
-      where: {
-        post_id: post.post_id,
-      },
-    });
-
-    expect(deletedPost).toBeNull();
+    expect(
+      createdPost.post_date_created_at,
+    ).toBeInstanceOf(Date);
   });
 
-  it('4. should recreate the deleted post', async () => {
-    const data = {
-      post_content: 'Test post 2 for user JULF',
-      post_title: 'JULF Test Post 2',
-      user_id: 9,
-      post_status: 'open',
-    };
+  // TEST 2: SEARCH POSTS BY TITLE
+  it('2. should search for a post by title using searchPostsByTitle', async () => {
+    const results = await postsService.searchPostsByTitle({
+      post_title: 'DEFAULT POST TITLE',
+    } as any);
 
-    const post = await service.createPost(data as any);
+    expect(results).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          post_title: 'DEFAULT POST TITLE',
+        }),
+      ]),
+    );
+  });
 
-    expect(post).toBeDefined();
-    expect(post.post_title).toBe('JULF Test Post 2');
-    expect(post.post_content).toBe('Test post 2 for user JULF');
-    expect(post.user_id).toBe(9);
-    expect(post.post_status).toBe('open');
+  // TEST 3: FIND ALL POSTS
+  it('3. should retrieve all posts using findAllPosts', async () => {
+    const posts = await postsService.findAllPosts();
+
+    expect(Array.isArray(posts)).toBe(true);
+
+    expect(posts).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          post_id: POST_ID,
+          post_title: 'DEFAULT POST TITLE',
+          post_content: 'STU Post One',
+        }),
+      ]),
+    );
+  });
+
+  // TEST 4: UPDATE POST TITLE
+  it('4. should update the post title using updatePostTitle', async () => {
+    const updatedPost = await postsService.updatePostTitle(
+      POST_ID,
+      {
+        post_title: 'UPDATED DEFAULT POST TITLE',
+      } as any,
+    );
+
+    expect(updatedPost).toMatchObject({
+      post_id: POST_ID,
+      post_title: 'UPDATED DEFAULT POST TITLE',
+    });
+  });
+
+  // TEST 5: UPDATE POST STATUS
+  it('5. should update the post status using updatePostStatus', async () => {
+    const updatedPost = await postsService.updatePostStatus(
+      POST_ID,
+      {
+        post_status: 'resolved',
+      } as any,
+    );
+
+    expect(updatedPost).toMatchObject({
+      post_id: POST_ID,
+      post_status: 'resolved',
+    });
+  });
+
+  // TEST 6: UPDATE POST CONTENT
+  it('6. should update the post content using updatePostContent', async () => {
+    const updatedPost = await postsService.updatePostContent(
+      POST_ID,
+      {
+        post_content: 'STU Post Three',
+      } as any,
+    );
+
+    expect(updatedPost).toMatchObject({
+      post_id: POST_ID,
+      post_content: 'STU Post Three',
+    });
+  });
+
+  // TEST 7: DELETE POST
+  it('7. should delete the post using removePost', async () => {
+    if (!postCreatedByTest) {
+      throw new Error(
+        'Cannot delete post: the create-post test did not create it.',
+      );
+    }
+
+    const deletedPost = await postsService.removePost(POST_ID);
+
+    postCreatedByTest = false;
+
+    expect(deletedPost).toMatchObject({
+      post_id: POST_ID,
+    });
+
+    const foundPost = await postsService.findOnePost(POST_ID);
+
+    expect(foundPost).toBeNull();
   });
 });
-/**
- * <escape>[
-  {
-    "post_id": 4,
-    "post_date_created_at": "2026-08-13T10:30:49.231396+05:30",
-    "post_content": "STU Post One",
-    "user_id": 7,
-    "post_status": "open",
-    "post_title": "DEFAULT POST TITLE"
-  }
-]</escape>
- */

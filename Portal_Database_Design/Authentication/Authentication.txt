@@ -29,7 +29,6 @@
     * The AuthenticationRegistry maintains a list of authentication providers. The SessionAuth class registers itself there.
     * The validate() function in the SessionAuth class is used to get the user_id from a session cookie. If it get a user, then it returns the User object, else it retunrs null.
 
-
 CHANGES:
   * In register() in CredentialsService, change the argument list to createUserDto.
   * In register() in CredentialsService, call this.usersRepository.findUserByEmail with emailDto.
@@ -37,6 +36,14 @@ CHANGES:
   * In register() in CredentialsService, call this.usersService.createUser() wuth createUserDto.
   * Write the findAllUserInfo() function to check if the user exists. If it does, then return the entire user object, else return null.
   * In register() in CredentialsService, replace this.usersRepository.findCredentials() with this.usersService.findAllUserInfo()
+
+  ===============PERSISTENCE===============
+  * Register the pg pool in the Drizzle Module in app.module.ts.
+  * We need to create the Sessions and RefreshTokens tables in Drizzle Schema (Maube for our Prisma Schema too)
+  * Migrate these tables to the DB using DrizzleORM.
+  * We need to implement an AuthenticationStore and implement the SessionStore and RefreshTokenStore in this DrizzleAuthenticationStore.
+  * Add the DrizzleAuthenticationStore to auth.module.ts.
+  ===============PERSISTENCE===============
 
 
 
