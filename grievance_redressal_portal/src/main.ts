@@ -1,8 +1,9 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import * as winston from 'winston';
 
 // Implements BigInt serialization
 // That is, allows the conversion of BigInt to JSON in the response.
@@ -17,8 +18,11 @@ async function bootstrap() {
     bufferLogs: true,
   });
   
-  // Loading winston
-  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+  // Retrieve the Winston logger registered with NestJS.
+  const logger = app.get(WINSTON_MODULE_NEST_PROVIDER);
+
+  // Use Winston as NestJS's application logger.
+  app.useLogger(logger);
   
   // Calling the ValidationPipe middleware 
   // Allows only white-listed characters
@@ -29,6 +33,23 @@ async function bootstrap() {
     transform: true,
     whitelist: true,
     forbidNonWhitelisted: true,
+
+    // Exception filter to catch and log ValidationErrors caused by the DTO.
+     exceptionFactory: (errors) => {
+      // Record DTO validation failures through Winston.
+      logger.error(
+        `DTO validation failed: ${JSON.stringify(errors)}`,
+        'ValidationPipe',
+      );
+
+      // Return a 400 Bad Request response.
+      const messages = errors.flatMap((error) =>
+        Object.values(error.constraints ?? {}),
+      );
+
+      return new BadRequestException(messages);
+    },
+
   }),
 );
   //app.useGlobalPipes(new ValidationPipe());
