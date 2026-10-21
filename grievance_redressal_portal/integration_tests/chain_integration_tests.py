@@ -1,3 +1,6 @@
+# Test email = abc@server.com
+# Test pwd = Abc@123pwd00
+
 from request_functions import *
 chain_test_data_list = [
 
@@ -434,13 +437,19 @@ chain_test_data_list = [
 
 ]
 
-
+# create_chain 1 - 5
+# update_chain_name 6 - 11
+# update_chain_address 12 - 33
+# remove_chain 34
 user_input_string = None
 user_choice = None
 chosen_test_name = None
 chosen_test_url = None
 chosen_test_data = None
 chosen_test_serial = None
+
+# Authenticate the user before presenting the Test Menu.
+authenticate()
 
 test_menu_name = "======CHAIN INTEGRATION TEST MENU======"
 
@@ -454,8 +463,8 @@ while user_choice != 0:
         print("Only numbers allowed as input!!")
         continue
     
-    if user_choice > 25:
-        print("The user_choice ", user_choice, " is out of range. Please select a test between serial 1 and 25.")
+    if user_choice > 34:
+        print("The user_choice ", user_choice, " is out of range. Please select a test between serial 1 and 34 (including 34).")
         continue
     
     test_number = user_choice - 1
@@ -469,17 +478,17 @@ while user_choice != 0:
         response = postRequests(chosen_test_url, chosen_test_data)
         print("\nresponse " + response.text + "\n")
     
-    elif user_choice >= 6 and user_choice <= 9:
+    elif user_choice >= 6 and user_choice <= 11:
         testDisplay("======UPDATE_CHAIN_NAME TEST======", test_number, chosen_test_url, chosen_test_name, chosen_test_serial, chosen_test_data)
         response = patchRequests(chosen_test_url, chosen_test_data)
         print("\nresponse " + response.text + "\n")
     
-    elif user_choice >= 10 and user_choice <= 23:
+    elif user_choice >= 12 and user_choice <= 33:
         testDisplay("======UPDATE_CHAIN_ADDRESS TEST======", test_number, chosen_test_url, chosen_test_name, chosen_test_serial, chosen_test_data)
         response = patchRequests(chosen_test_url, chosen_test_data)
         print("\nresponse " + response.text + "\n")
     
-    elif user_choice >= 24 and user_choice <= 25:
+    elif user_choice == 34:
         testDisplay("======REMOVE_CHAIN TEST======", test_number, chosen_test_url, chosen_test_name, chosen_test_serial, chosen_test_data)
         response = deleteRequests(chosen_test_url, chosen_test_data)
         print("\nresponse " + response.text + "\n")
@@ -489,5 +498,16 @@ while user_choice != 0:
             print("User choice out of range.")
             continue
         else:
+            signOut()
             print("Exiting...")
             break
+
+# P2000
+# P2001
+# P2002
+# P2003
+# P2004
+# P2011
+# P2015
+# P2018
+# P2025
