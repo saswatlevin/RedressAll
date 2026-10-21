@@ -160,10 +160,15 @@ SELECT MAX(comment_id) FROM comments;
 SELECT last_value FROM comments_comment_id_seq;
 SELECT setval('comments_comment_id_seq', (SELECT MAX(comment_id) FROM comments));
 
+SELECT MAX(user_id) FROM users;
+SELECT last_value FROM users_user_id_seq;
+SELECT setval('users_user_id_seq', (SELECT MAX(user_id) FROM users));
+
 npm test -- chains.service.spec.ts --detectOpenHandles
 npm test -- outlets.service.spec.ts --detectOpenHandles
 npm test -- posts.service.spec.ts --detectOpenHandles
 npm test -- comments.service.spec.ts --detectOpenHandles
+npm test users.service.spec.ts --detectOpenHandles
 
 # Do a Prisma migration
 # npx prisma migrate dev --name <name_of_migration>
