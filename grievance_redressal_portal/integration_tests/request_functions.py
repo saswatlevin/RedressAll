@@ -1,25 +1,26 @@
 import requests
 import json
 import os
+import getpass
 
 def getRequests(url, data):
-    response = requests.get(url, json=data)
+    response = http_session.get(url, json=data)
     return response
 
 def postRequests(url, data):
-    response = requests.post(url, json=data)
+    response = http_session.post(url, json=data)
     return response
 
 def putRequests(url, data):
-    response = requests.put(url, json=data)
+    response = http_session.put(url, json=data)
     return response
 
 def patchRequests(url, data):
-    response = requests.patch(url, json=data)
+    response = http_session.patch(url, json=data)
     return response
 
 def deleteRequests(url, data):
-    response = requests.delete(url, json=data)
+    response = http_session.delete(url, json=data)
     return response
 
 def filePostRequests(url, data, file_path, file_field_name="image"):
@@ -75,3 +76,87 @@ def userMenuDisplay(test_menu_name, test_data):
     print(test_menu_name)
     for index in range(0, test_data_length):
         print(str(index + 1) + ". " + test_data[index]['test_name'])
+
+
+BASE_URL = "http://localhost:3000"
+
+# Create a persistent HTTP session that can retain authentication cookies.
+http_session = requests.Session()
+
+
+def authenticate():
+    # Obtain the test user's credentials without displaying the password.
+    #email = os.getenv("TEST_USER_EMAIL") or input("Test user email: ")
+    #password = os.getenv("TEST_USER_PASSWORD") or getpass.getpass(
+    #    "Test user password: "
+    #)
+
+    email = input("Test user email: ")
+    password = input("Test user password: ")
+    
+
+
+    # Send the credentials to the NestJS sign-in endpoint.
+    response = http_session.post(
+        f"{BASE_URL}/auth/sign-in",
+        json={
+            "user_email": email,
+            "user_password": password,
+        },
+        timeout=15,
+    )
+
+    # Stop the test run if the server rejects the credentials.
+    if response.status_code != 200:
+        raise RuntimeError(
+            f"Sign-in failed: HTTP {response.status_code}: {response.text}"
+        )
+
+    # Parse the JSON response and reject malformed responses.
+    try:
+        result = response.json()
+    except ValueError as exc:
+        raise RuntimeError(
+            "Sign-in returned an invalid JSON response."
+        ) from exc
+
+    # Stop if the server requires an additional MFA step.
+    if result.get("mfaRequired"):
+        raise RuntimeError(
+            "MFA is required; complete the MFA flow before running tests."
+        )
+
+    # Verify that the session retained a cookie from the sign-in response.
+    if not http_session.cookies:
+        raise RuntimeError(
+            "Sign-in returned no stored cookies; check the Set-Cookie header."
+        )
+
+    # Warn if a Secure cookie cannot be sent over the configured HTTP URL.
+    secure_cookies = [
+        cookie.name
+        for cookie in http_session.cookies
+        if cookie.secure
+    ]
+
+    if BASE_URL.startswith("http://") and secure_cookies:
+        raise RuntimeError(
+            f"Secure cookie(s) {', '.join(secure_cookies)} cannot normally "
+            "be sent over HTTP; use HTTPS or configure development cookies."
+        )
+
+    # Confirm successful authentication before the test menu starts.
+    print("Sign-in successful. Session cookie will be reused.")
+    return response
+
+def signOut():
+    print("Signing out")
+    # Send the sign-out request using the authenticated session.
+    response = http_session.post(
+        f"{BASE_URL}/auth/sign-out",
+        timeout=15,
+    )
+
+    # Display the result of the sign-out operation.
+    print(f"Sign-out status: {response.status_code}")
+    return response
