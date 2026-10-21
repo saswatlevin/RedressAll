@@ -25,6 +25,13 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 
      AuthenticationModule.forRoot({
       // Keep your existing authentication/session configuration here.
+      
+      // Enable secure cookies only in production.
+      session: {
+        cookie: {
+          secure: process.env.NODE_ENV === 'production',
+        },
+      },
     }),
     MyAuthenticationModule,
 
