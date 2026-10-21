@@ -127,7 +127,6 @@ export class UserUniversalDto  {
     @IsNotEmpty()
     @IsString()
     @Matches(ADDRESS_POST_CODE_REGEX)
-    @IsPostalCode()
     @SanitizeXss()
     user_address_post_code!: string;
 

@@ -13,7 +13,8 @@ import {ADDRESS_ROOM_NUMBER_MAXIMUM_LENGTH,
         ADDRESS_ADMIN_DIVISION_REGEX,
         ADDRESS_COUNTRY_MAXIMUM_LENGTH,
         ADDRESS_COUNTRY_REGEX,
-        ADDRESS_POST_CODE_MAXIMUM_LENGTH} from '../../common.constants';
+        ADDRESS_POST_CODE_MAXIMUM_LENGTH,
+        ADDRESS_POST_CODE_REGEX} from '../../common.constants';
 import { SanitizeXss } from '../../sanitizer/sanitize-xss.decorator';
 
 // For all mandatory fields, use the definite assignmetn operator "!"
@@ -83,8 +84,8 @@ export class ChainUniversalDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @Matches(ADDRESS_POST_CODE_REGEX)
   @MaxLength(ADDRESS_POST_CODE_MAXIMUM_LENGTH)
-  @IsPostalCode()
   @SanitizeXss()
   chain_headquarters_address_post_code!: string;
 }
