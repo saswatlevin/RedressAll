@@ -1,0 +1,52 @@
+https://njihiamark.medium.com/mastering-jwt-authentication-with-refresh-tokens-in-nestjs-react-google-email-auth-e4f1e8c8c21e
+
+JWT (JSON Web Token) is an open standard (RFC 7519) for securely transmitting information between parties as a JSON object.
+A JWT consists of 3 parts: header.payload.signature.
+
+The header typically consists of two parts: the type of token (JWT) and the signing algorithm (HS256, RS256, etc.).
+The payload contains the claims, which are statements about an entity (usually the user) and additional metadata.
+
+* Why Refresh Tokens Are Necessary
+  ** They allow us to issue short-lived access tokens while providing a mechanism to renew them without re-authentication.
+  ** They enhance security by minimising the impact of compromised access tokens.
+  ** They offer a better user experience by enabling seamless token renewal without disrupting user sessions.
+
+IMPLEMENTATION
+Create a drizzle.config.ts file in the root directory.
+Add the "drizzle-push" and the "drizzle-generate" scripts to generate migrations.
+
+We need to setup a database module using the database-connection.ts file and a database-module.ts file in src/database.
+Import the database module to the App module.
+
+* After creating a database connector, we do the following:
+  ** We create a module, controller and service for the "Users" entity.
+  ** We create a users entity schema using Drizzle.
+  ** We update the "Users" service with methods to create a user, get a user using UUID, get a user by ID, get a user by email AND update a user.
+  ** We also update the "Users" module and the "Users" controller.
+
+* Setting up Google Cloud Console for OAuth
+
+* Passport Strategy vs. Guard in nestjs
+  ** A strategy defines how you want to authenticate someone. Eg - Local Strategy for email/password login, JWT Strategy for verifying JWT tokens.
+  ** A strategy checks credentials, validates the user data and returns the user data if valid.
+
+* Guards are Gatekeepers for Routes
+  ** A Guard is a NestJS concept that decides whether a request can go through to a route handler.
+
+IN SUMMARY, THE STRATEGY DEFINES HOW TO AUTHENTICATE AND THE GUARD USES THE STRATEGY TO DECIDE IF ACCESS IS ALLOWED.
+
+* Setting up the Local Strategy for Login
+  ** We will generate the auth module, service and controller.
+  ** The auth.service.ts file contains methods to LOGIN, VERIFY and SIGN OUT the user.
+  ** A CurrentUser decorator is created to extract the user object from the Passport.js-authenticated request.
+  ** A local authentication strategy is also created.
+  ** A login endpoint is created in the auth controller.
+  ** The Auth module is updated.
+
+* Setting up a JWT strategy for verifying JWT tokens
+  ** A JWT Strategy and a JWT Guard is created.
+  ** Creating a Protected Route in the Users Controller.
+  ** Creating a SignOut ROute in the Users Controller.
+
+
+

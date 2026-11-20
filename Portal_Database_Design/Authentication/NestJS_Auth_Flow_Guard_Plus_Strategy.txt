@@ -1,0 +1,31 @@
+NestJS Auth Flow: Guard + Strategy
+[1] HTTP Request (e.g. POST /auth/login)
+           |
+           v
+   ┌──────────────────────────────┐
+   │ 2. @UseGuards(AuthGuard('x'))│ ← Guard activated on route
+   └──────────────────────────────┘
+           |
+           v
+   ┌──────────────────────────────────┐
+   │ 3. Guard looks for Strategy 'x'  │
+   │    (e.g. 'local', 'jwt', etc)    │
+   └──────────────────────────────────┘
+           |
+           v
+   ┌────────────────────────────────────────────┐
+   │ 4. Strategy runs validation logic          │
+   │    (e.g. LocalStrategy → validate password)│
+   └────────────────────────────────────────────┘
+           |
+           v
+   ┌──────────────────────────────────────────────┐
+   │ 5. If valid → req.user is populated          │
+   │    If not valid → 401 Unauthorized returned  │
+   └──────────────────────────────────────────────┘
+           |
+           v
+   ┌──────────────────────────────────────────────┐
+   │ 6. Controller handler is called (e.g. login) │
+   │    You can now use req.user                  │
+   └──────────────────────────────────────────────┘

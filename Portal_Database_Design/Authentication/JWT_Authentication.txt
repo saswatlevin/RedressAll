@@ -1,0 +1,48 @@
+URL: https://www.prisma.io/blog/nestjs-prisma-authentication-7D056s1s0k3l
+
+* Install and configure Passport:
+
+npm install @nestjs/passport passport @nestjs/jwt passport-jwt
+npm install --save-dev @types/passport-jwt
+
+* Create an AuthModule in the application.
+Please use "npx nest generate resource"
+
+
+* Register the passport package in the src/auth/auth.module.ts file.
+
+Here, we register the PassportModule & the JWTModule.
+The @nestjs/passport module provides a PassportModule that you can import into your application.
+The PassportModule is a wrapper around the passport library that provides NestJS specific utilities.
+The JwtModule is a wrapper around the jsonwebtoken library. 
+It is used to generate and verify JWT tokens.
+
+* Implmenent a POST /auth/login endpoint.
+
+Here, we create a DTO, a controller, an AuthEntity and a Service for the LOGIN endpoint.
+The AuthEntity defines the shape of the response of this Endpoint.
+We need to create a new Login entity inside AuthService.
+We also need to create a POST /auth.login method inside the AuthController.
+
+* Implement JWT Authentication Strategy
+
+In Passport, a strategy is responsible for authenticating requests, which it accomplishes by implementing an authentication mechanism.
+Here, we implement a JWT authentication strategy to authenticate users. 
+To configure a strategy with @nestjs/passport, you need to create a class that extends the PassportStrategy class.
+
+The PassportStrategy class does 2 things:
+1. Passes JWT strategy specific options and configuration to the super() method in the constructor.
+2. A validate() callback method that will interact with your database to fetch a user based on the JWT payload. 
+   If a user is found, the validate() method is expected to return the user object.
+
+The PassportStrategy class takes two arguments: a strategy implementation and the name of the strategy. 
+For the passport-jwt strategy, Passport first verifies the JWT's signature and decodes the JSON. The decoded JSON is then passed to the validate() method.
+The validate() method is expected to return a user object. 
+  If the user is not found, the validate() method throws an error.
+
+* Implement JWT AuthGuard
+
+Guards are a NestJS construct that determines whether a request should be allowed to proceed or not.
+The AuthGuard class expects the name of a strategy.
+You can now use this guard as a decorator to protect your endpoints. Add the JwtAuthGuard to routes in the UsersController.
+
