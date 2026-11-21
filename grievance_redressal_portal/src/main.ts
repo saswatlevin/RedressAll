@@ -12,18 +12,24 @@ import * as winston from 'winston';
 };
 
 async function bootstrap() {
+  console.log("In bootstrap()");
+  console.log("NEST APP START LOG");
   //const app = await NestFactory.create(AppModule);
   // bufferlogs is for winston
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
-  
+
+  console.log("Created the Nest App through NestFactory");
+
   // Retrieve the Winston logger registered with NestJS.
   const logger = app.get(WINSTON_MODULE_NEST_PROVIDER);
+  
 
   // Use Winston as NestJS's application logger.
   app.useLogger(logger);
-  
+  console.log("Loaded the Winston Logger");
+
   // Calling the ValidationPipe middleware 
   // Allows only white-listed characters
   // Forbids all non-whitelisted characters.
@@ -51,15 +57,17 @@ async function bootstrap() {
     },
 
   }),
-);
-  //app.useGlobalPipes(new ValidationPipe());
 
-  // Added the PrismaExceptionFilter 
-  const { httpAdapter } = app.get(HttpAdapterHost);
-  app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
+);
+
+console.log("Loaded the useGlobalPipes setting");
+// Added the PrismaExceptionFilter 
+const { httpAdapter } = app.get(HttpAdapterHost);
+app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
   
+console.log("Loaded the PrismaExceptionFilter setting");
   
-  await app.listen(process.env.PORT ?? 3000);
+await app.listen(process.env.PORT ?? 3000);
 }
 
 bootstrap();
