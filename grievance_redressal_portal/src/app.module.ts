@@ -7,12 +7,12 @@ import { ChainsModule } from './chains/chains.module';
 import { OutletsModule } from './outlets/outlets.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
-import { AuthenticationModule } from '@nestjs/authentication';
-import { MyAuthenticationModule } from './authentication/myauthentication.module';
 
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
+
+
 
 @Module({
   imports: [
@@ -22,18 +22,6 @@ import DailyRotateFile from 'winston-daily-rotate-file';
     OutletsModule, 
     PostsModule, 
     CommentsModule,
-
-     AuthenticationModule.forRoot({
-      // Keep your existing authentication/session configuration here.
-      
-      // Enable secure cookies only in production.
-      session: {
-        cookie: {
-          secure: process.env.NODE_ENV === 'production',
-        },
-      },
-    }),
-    MyAuthenticationModule,
 
     WinstonModule.forRoot({
       level: process.env.LOG_LEVEL ?? 'info',
