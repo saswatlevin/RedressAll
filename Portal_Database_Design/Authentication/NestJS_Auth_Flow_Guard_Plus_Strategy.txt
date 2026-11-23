@@ -29,3 +29,5 @@ NestJS Auth Flow: Guard + Strategy
    │ 6. Controller handler is called (e.g. login) │
    │    You can now use req.user                  │
    └──────────────────────────────────────────────┘
+
+This is a an application built on Node v24.15.0 using Nest 12.0.8, Prisma 7.9.1 and Postgres 16.15.
