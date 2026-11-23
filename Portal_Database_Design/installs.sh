@@ -265,3 +265,22 @@ node -v
 npx jest --version
 npm ls @nestjs/testing jest ts-jest
 ls src/generated/prisma/internal/class.ts
+
+# Installing Passport and JWT based Libraries
+npm install @nestjs/config 
+npm install @nestjs/jwt 
+npm install @nestjs/passport
+npm install @nestjs/mapped-types
+
+npm install passport 
+npm install passport-jwt 
+npm install passport-local 
+npm install cookie-parser
+
+# Installing dev Dependencies 
+npm install --save-dev @types/passport 
+npm install --save-dev @types/passport-local 
+npm install --save-dev @types/passport-jwt 
+npm install --save-dev @types/cookie-parser
+
+
