@@ -103,6 +103,7 @@ model User {
 	user_mobile_no                               String      @unique @db.VarChar(12)
 	user_is_moderator                            Boolean     @default(false)
     user_status                                  UserStatus  @default(active)
+	refresh_token_hash                           String?     @db.VarChar(255)
 	posts                                        Post[]
 	comments                                     Comment[]
 
