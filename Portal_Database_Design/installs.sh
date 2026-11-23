@@ -284,3 +284,8 @@ npm install --save-dev @types/passport-jwt
 npm install --save-dev @types/cookie-parser
 
 
+# Adding a new field to the Users entity to store JWT refresh tokens.
+npx prisma migrate dev --name add_user_refresh_token_hash
+npx prisma generate
+
+# Code to generate secrets using Node
