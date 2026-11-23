@@ -289,3 +289,4 @@ npx prisma migrate dev --name add_user_refresh_token_hash
 npx prisma generate
 
 # Code to generate secrets using Node
+node -e "console.log(require('node:crypto').randomBytes(64).toString('hex'))"
