@@ -3,8 +3,9 @@ import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import * as winston from 'winston';
+import cookieParser from 'cookie-parser';
 
+//import * as winston from 'winston';
 // Implements BigInt serialization
 // That is, allows the conversion of BigInt to JSON in the response.
 (BigInt.prototype as any).toJSON = function () {
@@ -21,6 +22,9 @@ async function bootstrap() {
   });
 
   console.log("Created the Nest App through NestFactory");
+
+  app.use(cookieParser());
+  console.log("Loaded the cookieParser()");
 
   // Retrieve the Winston logger registered with NestJS.
   const logger = app.get(WINSTON_MODULE_NEST_PROVIDER);

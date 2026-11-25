@@ -12,16 +12,24 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+
 
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+            isGlobal: true,
+        }),
     UsersModule, 
     PrismaModule, 
     ChainsModule, 
     OutletsModule, 
     PostsModule, 
     CommentsModule,
+
+    AuthModule,
 
     WinstonModule.forRoot({
       level: process.env.LOG_LEVEL ?? 'info',

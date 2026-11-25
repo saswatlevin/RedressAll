@@ -12,6 +12,8 @@ import { UpdateUserIsModeratorDto } from './dto/update-user-is-moderator.dto';
 import { UpdateUserMobileNoDto } from './dto/update-user-mobile-no.dto';
 import { SearchUsersByNameDto } from './dto/search-users-by-name.dto';
 import { FindUserByEmailDto } from './dto/find-user-by-email.dto';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -90,6 +92,7 @@ export class UsersController {
     }
 
     @Get('find_user_by_email')
+    @UseGuards(JwtAuthGuard)
     findUserByEmail(findUserByEmailDto: FindUserByEmailDto) {
         console.log("In findUserByEmail");
         return this.usersService.findUserByEmail(findUserByEmailDto);
